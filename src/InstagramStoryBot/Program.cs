@@ -38,7 +38,12 @@ await rendererService.RenderizarStoryPngAsync(tema, storyContent, localPngPath);
 Console.WriteLine();
 if (options.DryRun || !options.HasSupabaseConfig || !options.HasInstagramConfig)
 {
-    Console.WriteLine("[4/4] Modo Dry-Run / Local ativo (ou credenciais de publicação ausentes).");
+    Console.WriteLine("[4/4] Publicação ignorada. Motivo:");
+    Console.WriteLine($"      - DryRun ativado (--dry-run): {options.DryRun}");
+    Console.WriteLine($"      - SUPABASE_URL preenchido: {!string.IsNullOrWhiteSpace(options.SupabaseUrl)}");
+    Console.WriteLine($"      - SUPABASE_KEY preenchido: {!string.IsNullOrWhiteSpace(options.SupabaseKey)}");
+    Console.WriteLine($"      - INSTAGRAM_ACCESS_TOKEN preenchido: {!string.IsNullOrWhiteSpace(options.InstagramAccessToken)}");
+    Console.WriteLine($"      - INSTAGRAM_USER_ID preenchido: {!string.IsNullOrWhiteSpace(options.InstagramUserId)}");
     Console.WriteLine($"      Imagem gerada localmente em: {localPngPath}");
     return;
 }

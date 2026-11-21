@@ -23,16 +23,30 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup .NET 8
+      - name: Setup .NET 8 (with NuGet Cache)
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.0.x
+          cache: true
+          cache-dependency-path: src/InstagramStoryBot/InstagramStoryBot.csproj
 
       - name: Build project
         run: dotnet build src/InstagramStoryBot/InstagramStoryBot.csproj --configuration Release
 
-      - name: Install Playwright Chromium
+      - name: Cache Playwright Chromium Binaries
+        id: cache-playwright
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('src/InstagramStoryBot/InstagramStoryBot.csproj') }}
+
+      - name: Install Playwright Chromium (on cache miss)
+        if: steps.cache-playwright.outputs.cache-hit != 'true'
         run: pwsh src/InstagramStoryBot/bin/Release/net8.0/playwright.ps1 install chromium --with-deps
+
+      - name: Install Playwright OS Dependencies (on cache hit)
+        if: steps.cache-playwright.outputs.cache-hit == 'true'
+        run: pwsh src/InstagramStoryBot/bin/Release/net8.0/playwright.ps1 install-deps chromium
 
       - name: Run Instagram Story Automation
         env:
