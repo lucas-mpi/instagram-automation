@@ -40,19 +40,29 @@ public sealed class GeminiService(HttpClient httpClient, BotOptions options)
             return GerarConteudoFallbackDeterministico(tema);
         }
 
-        const int maxTentativas = 3;
+        // Lista de modelos gratuitos (Free Tier) em ordem de prioridade contra erro 503 (alta demanda)
+        string[] modelosFallback =
+        [
+            options.GeminiModel,
+            "gemini-3.8-flash-lite",
+            options.GeminiModel,
+            "gemini-3.8-pro"
+        ];
+
+        const int maxTentativas = 4;
         List<string> ultimosErros = [];
 
         for (int tentativa = 1; tentativa <= maxTentativas; tentativa++)
         {
+            string modeloAtual = modelosFallback[Math.Min(tentativa - 1, modelosFallback.Length - 1)];
             try
             {
                 string userPrompt = MontarUserPrompt(tema, ultimosErros);
-                var story = await ChamarGeminiStructuredOutputAsync(userPrompt, ct);
+                var story = await ChamarGeminiStructuredOutputAsync(modeloAtual, userPrompt, ct);
 
                 if (story.ValidarLimites(out ultimosErros))
                 {
-                    Console.WriteLine($"[Gemini] Conteúdo JSON gerado e validado com sucesso na tentativa {tentativa}.");
+                    Console.WriteLine($"[Gemini] Conteúdo JSON gerado e validado com sucesso na tentativa {tentativa} (modelo: {modeloAtual}).");
                     return story;
                 }
 
@@ -60,8 +70,9 @@ public sealed class GeminiService(HttpClient httpClient, BotOptions options)
             }
             catch (Exception ex) when (ex is TaskCanceledException or HttpRequestException && tentativa < maxTentativas)
             {
-                Console.WriteLine($"[Gemini] Aviso: Tentativa {tentativa} falhou por timeout/rede ({ex.Message}). Aguardando 5s para tentar novamente...");
-                await Task.Delay(TimeSpan.FromSeconds(5), ct);
+                int delaySegundos = tentativa * 8;
+                Console.WriteLine($"[Gemini] Aviso: Tentativa {tentativa} no modelo '{modeloAtual}' falhou ({ex.Message}). Aguardando {delaySegundos}s para tentar próximo modelo...");
+                await Task.Delay(TimeSpan.FromSeconds(delaySegundos), ct);
             }
         }
 
@@ -89,9 +100,9 @@ public sealed class GeminiService(HttpClient httpClient, BotOptions options)
         return sb.ToString();
     }
 
-    private async Task<StoryContent> ChamarGeminiStructuredOutputAsync(string userPrompt, CancellationToken ct)
+    private async Task<StoryContent> ChamarGeminiStructuredOutputAsync(string modelName, string userPrompt, CancellationToken ct)
     {
-        string url = $"https://generativelanguage.googleapis.com/v1beta/models/{options.GeminiModel}:generateContent?key={options.GeminiApiKey}";
+        string url = $"https://generativelanguage.googleapis.com/v1beta/models/{modelName}:generateContent?key={options.GeminiApiKey}";
 
         var requestBody = new
         {
