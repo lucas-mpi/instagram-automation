@@ -1,0 +1,212 @@
+[
+  {
+    "id": 1,
+    "servico": "cilios",
+    "formato": "cuidados_pos",
+    "tema": "Higienização diária: Por que lavar os cílios todos os dias com shampoo neutro infantil/espuma evita blefarite e aumenta a retenção.",
+    "ultimo_uso": null
+  },
+  {
+    "id": 2,
+    "servico": "cilios",
+    "formato": "mito_ou_verdade",
+    "tema": "Demaquilante bifásico: O motivo químico pelo qual óleos dissolvem a cola (cianoacrilato) e derrubam os fios antes da hora.",
+    "ultimo_uso": null
+  },
+  {
+    "id": 3,
+    "servico": "cilios",
+    "formato": "mito_ou_verdade",
+    "tema": "Ciclo natural dos fios: Explicação rápida de que perder de 2 a 5 fios naturais por dia é normal e não significa que a extensão estragou o cílio.",
+    "ultimo_uso": null
+  },
+  {
+    "id": 4,
+    "servico": "cilios",
+    "formato": "mito_ou_verdade",
+    "tema": "Regra das 24h vs. realidade atual: Como funcionam os adesivos modernos e o que realmente evitar nas primeiras horas (vapor intenso/sauna).",
+    "ultimo_uso": null
+  },
+  {
+    "id": 5,
+    "servico": "cilios",
+    "formato": "cuidados_pos",
+    "tema": "Escovar os cílios: Como usar a escovinha corretamente (apenas do meio para as pontas, com os fios secos) para não entortar o mapping.",
+    "ultimo_uso": null
+  },
+  {
+    "id": 6,
+    "servico": "cilios",
+    "formato": "checklist_preparacao",
+    "tema": "Preparação pré-atendimento: Por que ir sem máscara de cílios e evitar café/energéticos 2h antes melhora a precisão e a colagem.",
+    "ultimo_uso": null
+  },
+  {
+    "id": 7,
+    "servico": "cilios",
+    "formato": "guia_de_escolha",
+    "tema": "Fio a Fio vs. Volume Brasileiro: Comparativo prático para ajudar quem busca naturalidade vs. quem quer efeito de rímel marcado.",
+    "ultimo_uso": null
+  },
+  {
+    "id": 8,
+    "servico": "cilios",
+    "formato": "cuidados_pos",
+    "tema": "Manutenção (15 a 21 dias): Por que deixar passar de 25 dias acaba exigindo uma nova aplicação completa em vez de manutenção.",
+    "ultimo_uso": null
+  },
+  {
+    "id": 9,
+    "servico": "cilios",
+    "formato": "cuidados_pos",
+    "tema": "Posição ao dormir: Dicas práticas para quem dorme de bruços ou de lado não amassar apenas um dos olhos.",
+    "ultimo_uso": null
+  },
+  {
+    "id": 10,
+    "servico": "cilios",
+    "formato": "mito_ou_verdade",
+    "tema": "Rímel na extensão: Por que nunca usar máscara de cílios (especialmente à prova d'água) por cima dos fans/fios sintéticos.",
+    "ultimo_uso": null
+  },
+  {
+    "id": 11,
+    "servico": "maquiagem",
+    "formato": "checklist_preparacao",
+    "tema": "Skincare pré-make: Como a hidratação da pele nos 3 dias anteriores ao evento impede que a base craquele ou marque linhas.",
+    "ultimo_uso": null
+  },
+  {
+    "id": 12,
+    "servico": "maquiagem",
+    "formato": "guia_de_escolha",
+    "tema": "Make de dia vs. Make de noite: Diferenças de iluminação, intensidade de contorno e fixação para casamento ao ar livre vs. festa noturna.",
+    "ultimo_uso": null
+  },
+  {
+    "id": 13,
+    "servico": "maquiagem",
+    "formato": "mito_ou_verdade",
+    "tema": "Pele madura e textura: Por que preparar a pele com produtos hidratantes e pontos de luz estratégicos valoriza muito mais do que excesso de pó.",
+    "ultimo_uso": null
+  },
+  {
+    "id": 14,
+    "servico": "maquiagem",
+    "formato": "cuidados_pos",
+    "tema": "Durabilidade em dias quentes/úmidos: Técnicas de blindagem e selagem que mantêm a maquiagem intacta mesmo com suor ou lágrimas.",
+    "ultimo_uso": null
+  },
+  {
+    "id": 15,
+    "servico": "maquiagem",
+    "formato": "guia_de_escolha",
+    "tema": "Como escolher a referência certa: Dicas para a cliente buscar fotos de inspiração com formato de olho e tom de pele parecidos com os dela.",
+    "ultimo_uso": null
+  },
+  {
+    "id": 16,
+    "servico": "maquiagem",
+    "formato": "checklist_preparacao",
+    "tema": "Cuidados com os lábios: Esfoliação leve e balm antes do atendimento para o batom matte não ressecar durante a festa.",
+    "ultimo_uso": null
+  },
+  {
+    "id": 17,
+    "servico": "maquiagem",
+    "formato": "guia_de_escolha",
+    "tema": "Maquiagem + Extensão de Cílios: Como adaptar o delineado e a sombra quando a cliente já usa extensão de cílios.",
+    "ultimo_uso": null
+  },
+  {
+    "id": 18,
+    "servico": "maquiagem",
+    "formato": "cuidados_pos",
+    "tema": "Remoção correta pós-festa: O passo a passo para limpar a pele sem agredir a barreira cutânea (e sem arrancar os cílios postiços ou de extensão).",
+    "ultimo_uso": null
+  },
+  {
+    "id": 19,
+    "servico": "escova",
+    "formato": "mito_ou_verdade",
+    "tema": "Protetor térmico obrigatório: O que acontece com a cutícula do fio exposta a 200 °C sem proteção e como o produto sela o brilho.",
+    "ultimo_uso": null
+  },
+  {
+    "id": 20,
+    "servico": "escova",
+    "formato": "guia_de_escolha",
+    "tema": "Escova modelada vs. Escova lisa: Quando escolher pontas viradas/movimento natural e quando apostar no alinhamento total.",
+    "ultimo_uso": null
+  },
+  {
+    "id": 21,
+    "servico": "escova",
+    "formato": "cuidados_pos",
+    "tema": "Combate ao frizz na umidade: Como blindar o cabelo escovado contra a umidade do ar usando finalizadores leves (sem pesar).",
+    "ultimo_uso": null
+  },
+  {
+    "id": 22,
+    "servico": "escova",
+    "formato": "cuidados_pos",
+    "tema": "Como dormir sem perder a escova: Técnica do coque frouxo no topo da cabeça (\"abacaxi\") ou fronha de cetim para acordar com o cabelo alinhado.",
+    "ultimo_uso": null
+  },
+  {
+    "id": 23,
+    "servico": "escova",
+    "formato": "checklist_preparacao",
+    "tema": "Pré-lavagem antes do salão: O que evitar passar em casa antes de ir escovar (excesso de óleo reparador ou leave-in pesado deixa o fio oleoso).",
+    "ultimo_uso": null
+  },
+  {
+    "id": 24,
+    "servico": "escova",
+    "formato": "checklist_preparacao",
+    "tema": "Escova para eventos: Por que fazer a escova algumas horas antes garante que o cabelo assente com movimento natural até a hora da festa.",
+    "ultimo_uso": null
+  },
+  {
+    "id": 25,
+    "servico": "babyliss",
+    "formato": "guia_de_escolha",
+    "tema": "Cachos clássicos vs. Beach Waves: Diferença visual entre ondas marcadas e o efeito despojado/moderno com pontas retas.",
+    "ultimo_uso": null
+  },
+  {
+    "id": 26,
+    "servico": "babyliss",
+    "formato": "mito_ou_verdade",
+    "tema": "Por que o babyliss desmancha rápido: Os 3 principais culpados (excesso de condicionador/máscara na lavagem, falta de fixador ou cabelo muito fino sem textura).",
+    "ultimo_uso": null
+  },
+  {
+    "id": 27,
+    "servico": "babyliss",
+    "formato": "cuidados_pos",
+    "tema": "O segredo do resfriamento do cacho: Por que não se deve pentear ou passar a mão nas ondas enquanto o cabelo ainda está quente.",
+    "ultimo_uso": null
+  },
+  {
+    "id": 28,
+    "servico": "babyliss",
+    "formato": "guia_de_escolha",
+    "tema": "Cabelo curto/médio com babyliss: Como ondas largas trazem volume e sofisticação mesmo para cortes chanel ou long bob.",
+    "ultimo_uso": null
+  },
+  {
+    "id": 29,
+    "servico": "babyliss",
+    "formato": "cuidados_pos",
+    "tema": "Como soltar os cachos no dia seguinte: Como transformar ondas mais fechadas da festa em um ondulado natural para o dia seguinte sem usar calor de novo.",
+    "ultimo_uso": null
+  },
+  {
+    "id": 30,
+    "servico": "babyliss",
+    "formato": "guia_de_escolha",
+    "tema": "Combo Escova + Babyliss: Por que escovar a raiz antes de fazer o babyliss garante acabamento de salão e evita aspecto armado.",
+    "ultimo_uso": null
+  }
+]

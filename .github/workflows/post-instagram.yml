@@ -1,0 +1,64 @@
+name: Publicar Story Instagram
+
+on:
+  schedule:
+    - cron: '0 12 */2 * *' # Roda a cada 2 dias ao meio-dia (UTC)
+  workflow_dispatch: # Permite testar manualmente clicando em "Run workflow" no GitHub
+    inputs:
+      tema_id:
+        description: 'ID opcional do tema (1 a 30) para forçar uma pauta específica'
+        required: false
+        type: string
+      dry_run:
+        description: 'Executar apenas geração e renderização sem publicar no Instagram'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Build project
+        run: dotnet build src/InstagramStoryBot/InstagramStoryBot.csproj --configuration Release
+
+      - name: Install Playwright Chromium
+        run: pwsh src/InstagramStoryBot/bin/Release/net8.0/playwright.ps1 install chromium --with-deps
+
+      - name: Run Instagram Story Automation
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: ${{ secrets.GEMINI_MODEL || 'gemini-3.8-flash' }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          SUPABASE_BUCKET: ${{ secrets.SUPABASE_BUCKET || 'stories' }}
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+          INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}
+          INSTAGRAM_HANDLE: ${{ secrets.INSTAGRAM_HANDLE || '@perfil.profissional' }}
+        run: |
+          ARGS=""
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            ARGS="$ARGS --dry-run"
+          fi
+          if [ -n "${{ inputs.tema_id }}" ]; then
+            ARGS="$ARGS --tema-id ${{ inputs.tema_id }}"
+          fi
+          dotnet run --project src/InstagramStoryBot/InstagramStoryBot.csproj --configuration Release --no-build -- $ARGS
+
+      - name: Upload generated Story PNG as artifact
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: story-gerado
+          path: output/*.png
+          if-no-files-found: ignore
+          retention-days: 7

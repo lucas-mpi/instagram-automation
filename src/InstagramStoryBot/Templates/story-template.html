@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+    :root {
+      /* Tema padrão (Cílios - Nude Claro / Off-white Quente) */
+      --bg-color: #F7F3EE;
+      --text-main: #2C2420;
+      --text-heading: #231C18;
+      --text-subtitle: #6B5B53;
+      --badge-bg: #EADDD3;
+      --badge-text: #7A5442;
+      --card-bg: #FFFFFF;
+      --card-border: rgba(183, 142, 118, 0.25);
+      --number-bg: #9E735E;
+      --number-text: #FFFFFF;
+      --accent-strong: #7A5442;
+      --cta-bg: #2C2420;
+      --cta-text: #F7F3EE;
+      --handle-color: #8C7A70;
+      --circle-border: rgba(183, 142, 118, 0.18);
+      --circle-gradient: rgba(214, 184, 165, 0.22);
+    }
+
+    /* Variação 2: Maquiagem (Rosê Suave) */
+    body.theme-maquiagem {
+      --bg-color: #FAF2F0;
+      --text-main: #2E1F21;
+      --text-heading: #241618;
+      --text-subtitle: #73585C;
+      --badge-bg: #F0DCD8;
+      --badge-text: #8A4F57;
+      --card-bg: #FFFFFF;
+      --card-border: rgba(196, 138, 146, 0.25);
+      --number-bg: #A8646D;
+      --number-text: #FFFFFF;
+      --accent-strong: #8A4F57;
+      --cta-bg: #2E1F21;
+      --cta-text: #FAF2F0;
+      --handle-color: #8F7579;
+      --circle-border: rgba(196, 138, 146, 0.18);
+      --circle-gradient: rgba(224, 179, 185, 0.22);
+    }
+
+    /* Variação 3: Escova / Babyliss (Terracota Sofisticado) */
+    body.theme-escova,
+    body.theme-babyliss {
+      --bg-color: #F4ECE6;
+      --text-main: #2A211B;
+      --text-heading: #1F1712;
+      --text-subtitle: #665449;
+      --badge-bg: #E5D3C5;
+      --badge-text: #6E4730;
+      --card-bg: #FFFFFF;
+      --card-border: rgba(168, 123, 96, 0.25);
+      --number-bg: #8C5A3C;
+      --number-text: #FFFFFF;
+      --accent-strong: #6E4730;
+      --cta-bg: #2A211B;
+      --cta-text: #F4ECE6;
+      --handle-color: #826E62;
+      --circle-border: rgba(168, 123, 96, 0.18);
+      --circle-gradient: rgba(201, 162, 138, 0.22);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      width: 1080px;
+      height: 1920px;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      /* Zonas de segurança do Instagram Stories */
+      padding: 230px 85px 290px 85px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Detalhe decorativo sutil no fundo */
+    .bg-circle {
+      position: absolute;
+      width: 900px;
+      height: 900px;
+      border-radius: 50%;
+      border: 2px solid var(--circle-border);
+      top: -200px;
+      right: -250px;
+      pointer-events: none;
+    }
+
+    .bg-circle-bottom {
+      position: absolute;
+      width: 750px;
+      height: 750px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--circle-gradient) 0%, rgba(247, 243, 238, 0) 70%);
+      bottom: 80px;
+      left: -200px;
+      pointer-events: none;
+    }
+
+    /* Cabeçalho do Card */
+    .header {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .badge {
+      align-self: flex-start;
+      background-color: var(--badge-bg);
+      color: var(--badge-text);
+      font-size: 26px;
+      font-weight: 600;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      padding: 14px 28px;
+      border-radius: 50px;
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 86px;
+      line-height: 1.05;
+      font-weight: 700;
+      color: var(--text-heading);
+    }
+
+    .subtitle {
+      font-size: 36px;
+      line-height: 1.4;
+      color: var(--text-subtitle);
+      font-weight: 400;
+    }
+
+    /* Lista de Tópicos */
+    .cards-container {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      margin: 40px 0;
+    }
+
+    .tip-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 28px;
+      padding: 40px 44px;
+      display: flex;
+      align-items: flex-start;
+      gap: 28px;
+      box-shadow: 0 12px 32px rgba(44, 36, 32, 0.04);
+    }
+
+    .tip-number {
+      min-width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background-color: var(--number-bg);
+      color: var(--number-text);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 34px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 4px;
+    }
+
+    .tip-text {
+      font-size: 34px;
+      line-height: 1.45;
+      color: var(--text-main);
+    }
+
+    .tip-text strong {
+      color: var(--accent-strong);
+      font-weight: 600;
+    }
+
+    /* Rodapé / CTA de Interação */
+    .footer {
+      text-align: center;
+      border-top: 1px solid var(--card-border);
+      padding-top: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .cta-box {
+      background-color: var(--cta-bg);
+      color: var(--cta-text);
+      font-size: 30px;
+      font-weight: 500;
+      padding: 22px 44px;
+      border-radius: 100px;
+      letter-spacing: 0.5px;
+    }
+
+    .handle {
+      font-size: 26px;
+      color: var(--handle-color);
+      letter-spacing: 1px;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body class="theme-{{SERVICO}}">
+  <div class="bg-circle"></div>
+  <div class="bg-circle-bottom"></div>
+
+  <div class="header">
+    <span class="badge">{{CATEGORIA}}</span>
+    <h1>{{TITULO}}</h1>
+    <p class="subtitle">{{SUBTITULO}}</p>
+  </div>
+
+  <div class="cards-container">
+    <div class="tip-card">
+      <div class="tip-number">1</div>
+      <div class="tip-text">{{TOPICO_1}}</div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-number">2</div>
+      <div class="tip-text">{{TOPICO_2}}</div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-number">3</div>
+      <div class="tip-text">{{TOPICO_3}}</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="cta-box">{{CTA}}</div>
+    <span class="handle">{{HANDLE}}</span>
+  </div>
+</body>
+</html>
