@@ -27,7 +27,7 @@ public sealed class SupabaseService(HttpClient httpClient, BotOptions options)
 
     private async Task<TemaSeed> SelecionarTemaDoSupabaseAsync(CancellationToken ct)
     {
-        string url = $"{options.SupabaseUrl}/rest/v1/temas?select=*";
+        string url = $"{options.SupabaseUrl}/rest/v1/temas?select=*&ativo=eq.true";
         using var req = CriarRequest(HttpMethod.Get, url);
         using var resp = await httpClient.SendAsync(req, ct);
         resp.EnsureSuccessStatusCode();
@@ -45,7 +45,8 @@ public sealed class SupabaseService(HttpClient httpClient, BotOptions options)
         var todosTemas = await JsonSerializer.DeserializeAsync<List<TemaSeed>>(stream, JsonOpts, ct)
                          ?? throw new InvalidOperationException("Arquivo temas-seed.json está vazio.");
 
-        return EscolherTemaComRotacaoDeServico(todosTemas, options.ForcedTemaId);
+        var temasAtivos = todosTemas.Where(t => t.Ativo).ToList();
+        return EscolherTemaComRotacaoDeServico(temasAtivos, options.ForcedTemaId);
     }
 
     private static TemaSeed EscolherTemaComRotacaoDeServico(List<TemaSeed> todosTemas, int? forcedTemaId)

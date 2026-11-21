@@ -19,6 +19,9 @@ public sealed class TemaSeed
     [JsonPropertyName("ultimo_uso")]
     public DateTimeOffset? UltimoUso { get; set; }
 
+    [JsonPropertyName("ativo")]
+    public bool Ativo { get; set; } = true;
+
     public string ObterNomeServicoLegivel() => Servico.ToLowerInvariant() switch
     {
         "cilios" => "Extensão de Cílios",

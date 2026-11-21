@@ -8,12 +8,13 @@ CREATE TABLE IF NOT EXISTS public.temas (
     servico TEXT NOT NULL CHECK (servico IN ('cilios', 'maquiagem', 'escova', 'babyliss')),
     formato TEXT NOT NULL,
     tema TEXT NOT NULL,
+    ativo BOOLEAN NOT NULL DEFAULT TRUE,
     ultimo_uso TIMESTAMPTZ NULL,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
--- Índice para acelerar a busca do tema mais antigo
-CREATE INDEX IF NOT EXISTS idx_temas_ultimo_uso ON public.temas (ultimo_uso ASC NULLS FIRST, id ASC);
+-- Índice para acelerar a busca do tema ativo mais antigo
+CREATE INDEX IF NOT EXISTS idx_temas_ultimo_uso ON public.temas (ativo, ultimo_uso ASC NULLS FIRST, id ASC);
 
 -- 2. Inserir os 30 temas específicos (sementes) do documento
 INSERT INTO public.temas (id, servico, formato, tema, ultimo_uso) VALUES
