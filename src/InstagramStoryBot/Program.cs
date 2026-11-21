@@ -49,9 +49,17 @@ if (options.DryRun || !options.HasSupabaseConfig || !options.HasInstagramConfig)
 }
 
 Console.WriteLine("[4/4] Fazendo upload para o Supabase Storage e publicando no Instagram...");
-string publicImageUrl = await supabaseService.UploadImagemStoryAsync(localPngPath);
-await instagramService.PublicarStoryAsync(publicImageUrl);
-await supabaseService.AtualizarUltimoUsoAsync(tema.Id);
+var (publicImageUrl, uploadedFileName) = await supabaseService.UploadImagemStoryAsync(localPngPath);
+try
+{
+    await instagramService.PublicarStoryAsync(publicImageUrl);
+    await supabaseService.AtualizarUltimoUsoAsync(tema.Id);
+}
+finally
+{
+    // Sempre remove a imagem temporária do bucket do Supabase após a tentativa de publicação
+    await supabaseService.RemoverImagemStoryAsync(uploadedFileName);
+}
 
 Console.WriteLine();
 Console.WriteLine("Fluxo finalizado com sucesso!");

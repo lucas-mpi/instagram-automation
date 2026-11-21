@@ -107,7 +107,7 @@ public sealed class SupabaseService(HttpClient httpClient, BotOptions options)
         Console.WriteLine($"[Supabase] Tema #{temaId} atualizado com ultimo_uso = {payload.ultimo_uso}.");
     }
 
-    public async Task<string> UploadImagemStoryAsync(string localFilePath, CancellationToken ct = default)
+    public async Task<(string PublicUrl, string FileName)> UploadImagemStoryAsync(string localFilePath, CancellationToken ct = default)
     {
         if (!options.HasSupabaseConfig)
             throw new InvalidOperationException("SUPABASE_URL e SUPABASE_KEY são obrigatórios para fazer upload da imagem.");
@@ -130,8 +130,27 @@ public sealed class SupabaseService(HttpClient httpClient, BotOptions options)
         }
 
         string publicUrl = $"{options.SupabaseUrl}/storage/v1/object/public/{options.SupabaseBucket}/{fileName}";
-        Console.WriteLine($"[Supabase Storage] Imagem publicada temporariamente em: {publicUrl}");
-        return publicUrl;
+        Console.WriteLine($"[Supabase Storage] Imagem temporária enviada com sucesso ({fileName}).");
+        return (publicUrl, fileName);
+    }
+
+    public async Task RemoverImagemStoryAsync(string fileName, CancellationToken ct = default)
+    {
+        if (!options.HasSupabaseConfig || string.IsNullOrWhiteSpace(fileName))
+            return;
+
+        string deleteUrl = $"{options.SupabaseUrl}/storage/v1/object/{options.SupabaseBucket}/{fileName}";
+        using var req = CriarRequest(HttpMethod.Delete, deleteUrl);
+        using var resp = await httpClient.SendAsync(req, ct);
+
+        if (resp.IsSuccessStatusCode)
+        {
+            Console.WriteLine($"[Supabase Storage] Imagem temporária removida do bucket ({fileName}).");
+        }
+        else
+        {
+            Console.WriteLine($"[Supabase Storage] Aviso: Não foi possível remover a imagem temporária ({resp.StatusCode}).");
+        }
     }
 
     private HttpRequestMessage CriarRequest(HttpMethod method, string url)

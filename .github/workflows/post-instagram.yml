@@ -68,11 +68,11 @@ jobs:
           fi
           dotnet run --project src/InstagramStoryBot/InstagramStoryBot.csproj --configuration Release --no-build -- $ARGS
 
-      - name: Upload generated Story PNG as artifact
+      - name: Upload generated Story PNG as artifact (only on dry_run)
         uses: actions/upload-artifact@v4
-        if: always()
+        if: inputs.dry_run == true
         with:
           name: story-gerado
           path: output/*.png
           if-no-files-found: ignore
-          retention-days: 7
+          retention-days: 1

@@ -19,14 +19,14 @@ public sealed class InstagramService(HttpClient httpClient, BotOptions options)
 
         // Passo 1: Gerar o Container de Mídia do Story
         string creationId = await CriarContainerStoryAsync(publicImageUrl, ct);
-        Console.WriteLine($"[Instagram API] Container de Story criado com sucesso. creation_id = {creationId}");
+        Console.WriteLine("[Instagram API] Container de Story criado com sucesso.");
 
         // Aguarda alguns segundos para a Meta baixar e processar o arquivo do Supabase Storage
         await AguardarProcessamentoContainerAsync(creationId, ct);
 
         // Passo 2: Publicar o Container de Mídia
         string mediaId = await PublicarContainerStoryAsync(creationId, ct);
-        Console.WriteLine($"[Instagram API] Story publicado com sucesso! media_id = {mediaId}");
+        Console.WriteLine("[Instagram API] Story publicado com sucesso!");
 
         return mediaId;
     }
