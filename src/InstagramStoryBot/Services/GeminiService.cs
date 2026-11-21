@@ -45,16 +45,24 @@ public sealed class GeminiService(HttpClient httpClient, BotOptions options)
 
         for (int tentativa = 1; tentativa <= maxTentativas; tentativa++)
         {
-            string userPrompt = MontarUserPrompt(tema, ultimosErros);
-            var story = await ChamarGeminiStructuredOutputAsync(userPrompt, ct);
-
-            if (story.ValidarLimites(out ultimosErros))
+            try
             {
-                Console.WriteLine($"[Gemini] Conteúdo JSON gerado e validado com sucesso na tentativa {tentativa}.");
-                return story;
-            }
+                string userPrompt = MontarUserPrompt(tema, ultimosErros);
+                var story = await ChamarGeminiStructuredOutputAsync(userPrompt, ct);
 
-            Console.WriteLine($"[Gemini] Tentativa {tentativa} excedeu limites de caracteres ({string.Join("; ", ultimosErros)}). Solicitando ajuste...");
+                if (story.ValidarLimites(out ultimosErros))
+                {
+                    Console.WriteLine($"[Gemini] Conteúdo JSON gerado e validado com sucesso na tentativa {tentativa}.");
+                    return story;
+                }
+
+                Console.WriteLine($"[Gemini] Tentativa {tentativa} excedeu limites de caracteres ({string.Join("; ", ultimosErros)}). Solicitando ajuste...");
+            }
+            catch (Exception ex) when (ex is TaskCanceledException or HttpRequestException && tentativa < maxTentativas)
+            {
+                Console.WriteLine($"[Gemini] Aviso: Tentativa {tentativa} falhou por timeout/rede ({ex.Message}). Aguardando 5s para tentar novamente...");
+                await Task.Delay(TimeSpan.FromSeconds(5), ct);
+            }
         }
 
         throw new InvalidOperationException($"O modelo Gemini não respeitou os limites de caracteres após {maxTentativas} tentativas: {string.Join(", ", ultimosErros)}");

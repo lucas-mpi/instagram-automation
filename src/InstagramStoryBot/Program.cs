@@ -7,7 +7,7 @@ Console.WriteLine("  Automação de Conteúdo para Estética - Instagram Stories
 Console.WriteLine("==============================================================");
 
 var options = BotOptions.Load(args);
-using var httpClient = new HttpClient { Timeout = TimeSpan.FromSeconds(60) };
+using var httpClient = new HttpClient { Timeout = TimeSpan.FromSeconds(180) };
 
 var supabaseService = new SupabaseService(httpClient, options);
 var geminiService = new GeminiService(httpClient, options);
