@@ -2,7 +2,7 @@ name: Publicar Story Instagram
 
 on:
   schedule:
-    - cron: '0 12 */2 * *' # Roda a cada 2 dias ao meio-dia (UTC)
+    - cron: '0 15 */2 * *' # Roda a cada 2 dias às 12:00 no horário de Brasília (15:00 UTC)
   workflow_dispatch: # Permite testar manualmente clicando em "Run workflow" no GitHub
     inputs:
       tema_id:

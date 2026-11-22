@@ -40,13 +40,14 @@ public sealed class GeminiService(HttpClient httpClient, BotOptions options)
             return GerarConteudoFallbackDeterministico(tema);
         }
 
-        // Lista de modelos gratuitos (Free Tier) em ordem de prioridade contra erro 503 (alta demanda)
+        // Lista de modelos gratuitos (Free Tier) ativos na documentação oficial (ai.google.dev):
+        // Alterna entre gemini-3.8-flash e gemini-3.5-flash-lite em caso de timeout ou erro 503.
         string[] modelosFallback =
         [
             options.GeminiModel,
-            "gemini-3.8-flash-lite",
+            "gemini-3.5-flash-lite",
             options.GeminiModel,
-            "gemini-3.8-pro"
+            "gemini-3.5-flash-lite"
         ];
 
         const int maxTentativas = 4;
